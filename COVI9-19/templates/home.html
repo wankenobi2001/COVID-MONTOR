@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-3.4.1-dist/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='jquery/jquery-ui-1.12.1/jquery-ui.min.css')}}">
+    <script src="{{ url_for('static', filename='bootstrap-3.4.1-dist/js/jquery.slim.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='jquery/jquery-3.6.0.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='jquery/jquery-ui-1.12.1/jquery-ui.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='bootstrap-3.4.1-dist/js/bootstrap.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='canvas/canvasjs.min.js')}}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css')}}">
+
+    <title>Document</title>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo_content">
+            <div class="logo">
+                <i class="glyphicon glyphicon-eye-close"></i>
+                <div class="logo_name">Covid-19-Lab</div>
+            </div>
+            <i class="glyphicon glyphicon-align-justify" id="btn"></i>
+        </div>
+        <ul class="nav_list">
+            <li id="watch">
+
+               <span class="watch">Watchinng</span>
+
+            </li>
+            <li class="c1">
+                <a href="#">
+                    <i class="glyphicon glyphicon-facetime-video"></i>
+                    <span class="links_name">Camera 1</span>
+                </a>
+
+            </li>
+            <li class="c2">
+                <a href="#">
+                    <i class="glyphicon glyphicon-facetime-video"></i>
+                    <span class="links_name">Camera 2</span>
+                </a>
+
+            </li>
+            <li class="c3">
+                <a href="#">
+                    <i class="glyphicon glyphicon-facetime-video"></i>
+                    <span class="links_name">Camera 3</span>
+                </a>
+
+            </li>
+            <li class="c4">
+                <a href="#">
+                    <i class="glyphicon glyphicon-facetime-video"></i>
+                    <span class="links_name">Camera 4</span>
+                </a>
+
+            </li>
+            <li>
+                <a href="#">
+                    <i class="glyphicon glyphicon-cog"></i>
+                    <span class="links_name">Settings</span>
+                </a>
+
+            </li>
+
+        </ul>
+        <div class="profile_content">
+            <div class="profile">
+                <div class="profile_details">
+                    <image src="{{ url_for('static', filename='images/man.png')}}"/>
+                    <div class="name_job">
+                        <div class="name">Humphrey Phiri</div>
+                        <div class="job">Programmer</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="home_content">
+        <div class="text">
+            {% if rooms %}
+                    <p>{{rooms}}</p>
+            {% endif %}
+            <div class="user">
+                <h5><a href="{{url_for('logout')}}">Back <i class="glyphicon glyphicon-log-out" id="log_out"></i></a></h5>
+                {% if user %}
+                    <h5> Username: {{user['Username']}}  </h5>
+                {% endif %}
+                 {% if y_axis %}
+                    <h5> Username: {{y_axis}}  </h5>
+                {% endif %}
+            </div>
+        </div>
+        {% block content %}
+        <div id="videos">
+            <div id="video">
+                 <img  src="{{url_for('video')}}" />
+            </div>
+            <div id="video">
+                <img  src="{{url_for('social_d')}}" />
+            </div>
+
+            <div class="cameras">
+            <p class="stream">Streaming...................</p>
+            <div class="streaming">
+                <span id="wrapper">
+                   <div></div>
+                   <div></div>
+                   <div></div>
+                   <div></div>
+                   <div></div>
+                   <div></div>
+                   <div></div>
+                   <div></div>
+                   <div></div>
+                   <div></div>
+                   <div></div>
+                   <div></div>
+                   <div></div>
+                   <div></div>
+                   <div></div>
+                   <div></div>
+                   <div></div>
+                   <div></div>
+                   <div></div>
+                   <div></div>
+                   <div></div>
+                   <div></div>
+                </span>
+            </div>
+
+        </div>
+
+        </div>
+
+
+
+        {% endblock %}
+
+    </div>
+
+
+</body>
+</html>

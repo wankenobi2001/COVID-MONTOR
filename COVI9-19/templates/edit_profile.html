@@ -1,0 +1,84 @@
+
+{% extends "room.html"%}
+{% block content %}
+	<div class="login-block">
+		<div class="profile-data">
+			<h2>Edit User Profile</h2>
+			<h4 id="errors" style="color: red;">{% if registererror %} {{registererror}} {% endif %}</h4>
+			<hr>
+		</div>
+		<form name="myform" action="/updating" method="POST" id="form" onsubmit=" return validateForm()">
+				{% for row in value %}
+				<div class="row">
+
+					<div class="form-group col-xs-6"  >
+                         <label>First-Name:</label>
+						<input type="text" name="fname" class="form-control" value="{{ row[1]}}" required>
+					</div>
+					<div class="form-group col-xs-6"  >
+                         <label>Last-Name:</label>
+						<input type="text" name="lname" class="form-control" value="{{ row[2]}}" required>
+					</div>
+					<div class="form-group col-xs-6"  >
+                        <label>User-Name:</label>
+						<input type="text" name="uname" class="form-control" value="{{ row[3]}}" readonly>
+					</div>
+
+
+					<div class="form-group col-xs-6" >
+                         <label>Email:</label>
+						<input type="email" name="email" class="form-control" value="{{ row[4]}}" required>
+					</div>
+
+				</div>
+				<div class="row row">
+					<div class="form-group col-xs-6" >
+                         <label>Phone:</label>
+						<input  type="text" name="phone" class="form-control" value="{{ row[5]}}" required>
+					</div>
+
+					<div class="form-group col-xs-6" >
+                        <label>National-ID:</label>
+						<input type="text" name="nid" class="form-control" value="{{ row[6]}}" required>
+					</div>
+
+				</div>
+                <button type="submit" class="login-btn">Edit</button>
+			{% endfor %}
+			</form>
+			<script>
+				function validateForm(){
+					var fname = document.myform.fname.value;
+					var lname = document.myform.lname.value;
+					var email = document.myform.email.value;
+					var phone = document.myform.phone.value;
+					var uname = document.myform.uname.value;
+					var nid = document.myform.nid.value;
+
+
+					if(fname == null || fname ==""){
+						alert("Please enter your first name")
+						return false;
+					} else if(lname == null || lname ==""){
+						alert("Please enter your last name")
+						return false;
+					} else if(email == null || email ==""){
+						alert("Please enter your email")
+						return false;
+					} else if(phone == null || phone ==""){
+						alert("Please enter your phone number")
+						return false;
+					} else if(uname== null || uname==""){
+						alert("Please enter your user  name")
+						return false;
+
+					} else if(nid == null || nid ==""){
+						alert("Please enter your National-ID")
+						return false;
+
+					}
+					
+				}
+			</script>
+	</div>
+{% endblock %}

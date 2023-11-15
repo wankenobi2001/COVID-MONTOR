@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Register Template</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-3.4.1-dist/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='jquery/jquery-ui-1.12.1/jquery-ui.min.css')}}">
+    <script src="{{ url_for('static', filename='bootstrap-3.4.1-dist/js/jquery.slim.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='jquery/jquery-3.6.0.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='jquery/jquery-ui-1.12.1/jquery-ui.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='bootstrap-3.4.1-dist/js/bootstrap.min.js')}}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+</head>
+<body>
+	<div class="container-fluid hq-template" >
+		<div class="login-block" >
+			<h5 style="color: red;">{% if registererror %} {{registererror}} {% endif %}</h5>
+		  	<h3 >Register to create an account</h3>
+			<form name="myform" action="/register" method="POST" onsubmit=" return validateForm()">
+				<div class="row">
+					<div class="form-group col-xs-6"  >
+						<input type="text" name="fname" class="form-control" placeholder="First Name">
+					</div>
+					<div class="form-group col-xs-6"  >
+						<input type="text" name="lname" class="form-control" placeholder="Last Name">
+					</div>
+					<div class="form-group col-xs-6" >
+						<input type="email" name="email" class="form-control" placeholder="Email">
+					</div>
+					<div class="form-group col-xs-6" >
+						<input  type="text" name="phone" class="form-control" placeholder="Phone">
+
+					</div>
+				</div>
+				<div class="row row">
+					<div class="form-group col-xs-6"  >
+						<input type="text" name="uname" class="form-control" placeholder="User Name">
+					</div>
+					<div class="form-group col-xs-6" >
+						<input type="text" name="nid" class="form-control" placeholder="National-ID">
+					</div>
+					<div class="form-group col-xs-6" >
+						<input id="passinput" type="password" name="password" class="form-control" placeholder="Password">
+
+					</div>
+					<div class="form-group col-xs-6" >
+						<input id="passinput" type="password" name="cpassword" class="form-control" placeholder="Confirm Password">
+
+					</div>
+				</div>
+
+				<button type="submit" class="login-btn btn btn-primary"><a href="">Register</a></button>
+
+			</form>
+			<script>
+				function validateForm(){
+					var fname = document.myform.fname.value;
+					var lname = document.myform.lname.value;
+					var email = document.myform.email.value;
+					var phone = document.myform.phone.value;
+					var uname = document.myform.uname.value;
+					var nid = document.myform.nid.value;
+					var password = document.myform.password.value;
+					var cpassword = document.myform.cpassword.value;
+
+					if(fname == null || fname ==""){
+						alert("Please enter your first name")
+						return false;
+					} else if(lname == null || lname ==""){
+						alert("Please enter your last name")
+						return false;
+					} else if(email == null || email ==""){
+						alert("Please enter your email")
+						return false;
+					} else if(phone == null || phone ==""){
+						alert("Please enter your phone number")
+						return false;
+					} else if(uname== null || uname==""){
+						alert("Please enter your user  name")
+						return false;
+
+					} else if(nid == null || nid ==""){
+						alert("Please enter your National-ID")
+						return false;
+
+					} else if(password == null || password ==""){
+						alert("Please enter your Password")
+						return false;
+
+					}  else if(password.length < 6){
+						alert("password must be atleast 6 characters long")
+						return false;
+					}else if(cpassword == null || cpassword ==""){
+						alert("Please Confirm your password")
+						return false;
+					}else if(password != cpassword){
+						alert("Please Confirm your password, passwords do not match")
+						return false;
+					}
+					
+				}
+			</script>
+			
+
+
+		  	<div class="separator ">
+				<hr>
+				<p>Or Register With</p>
+				<hr>
+			</div>
+			<ul class="social-media">
+				<li><a href="" class="facebook-bg" title="facebook"><i class="fa fa-facebook"></i><span>facebook</span></a></li>
+				<li><a href="" class="twitter-bg" title="twitter"><i class="fa fa-twitter"></i><span>Twitter</span></a></li>
+				<li><a href="" class="google-bg" title="google"><i class="fa fa-google"></i><span>Google</span></a></li>
+			</ul>
+
+		  	<p class="register">Already have an account? <a href="{{url_for('login')}}">Log in</a></p>
+		</div>
+		<div class="copyright">
+			<a href="https://www.hqtemplate.com">Developed By Humphrey Phiri</a>
+		</div>
+	</div>
+
+</body>
+</html>

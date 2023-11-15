@@ -1,0 +1,100 @@
+
+{% extends "admin.html"%}
+{% block content %}
+	<div class="login-block">
+		<div class="profile-data">
+			<h2>Add-User</h2>
+			<h4 id="errors" style="color: red;">{% if registererror %} {{registererror}} {% endif %}</h4>
+			<hr>
+		</div>
+		<form name="myform" action="/adduser" method="POST" id="form" onsubmit=" return validateForm()">
+				<div class="row">
+					<div class="form-group col-xs-6"  >
+                         <label>First-Name:</label>
+						<input type="text" name="fname" class="form-control" placeholder="enter your First Name" required>
+					</div>
+					<div class="form-group col-xs-6"  >
+                         <label>Last-Name:</label>
+						<input type="text" name="lname" class="form-control" placeholder="enter your Last Name" required>
+					</div>
+					<div class="form-group col-xs-6" >
+                         <label>Email:</label>
+						<input type="email" name="email" class="form-control" placeholder="enter your email" required>
+					</div>
+					<div class="form-group col-xs-6" >
+                         <label>Phone:</label>
+						<input  type="text" name="phone" class="form-control" placeholder="enter phone number" required>
+
+					</div>
+				</div>
+				<div class="row row">
+					<div class="form-group col-xs-6"  >
+                        <label>User-Name:</label>
+						<input type="text" name="uname" class="form-control" placeholder="enter user name" required>
+					</div>
+					<div class="form-group col-xs-6" >
+                        <label>National-ID:</label>
+						<input type="text" name="nid" class="form-control" placeholder="enter national Id" required>
+					</div>
+					<div class="form-group col-xs-6"  >
+                        <label>Password:</label>
+						<input type="password" name="password" class="form-control" placeholder="enter your password" required>
+					</div>
+					<div class="form-group col-xs-6" >
+                        <label>Confirm Password:</label>
+						<input type="password" name="cpassword" class="form-control" placeholder="confirm your password" required>
+					</div>
+				</div>
+                <button type="submit" class="login-btn">Add User</button>
+
+			</form>
+			<script>
+				function validateForm(){
+					var fname = document.myform.fname.value;
+					var lname = document.myform.lname.value;
+					var email = document.myform.email.value;
+					var phone = document.myform.phone.value;
+					var uname = document.myform.uname.value;
+					var nid = document.myform.nid.value;
+					var password = document.myform.password.value;
+					var cpassword = document.myform.cpassword.value;
+
+					if(fname == null || fname ==""){
+						alert("Please enter your first name")
+						return false;
+					} else if(lname == null || lname ==""){
+						alert("Please enter your last name")
+						return false;
+					} else if(email == null || email ==""){
+						alert("Please enter your email")
+						return false;
+					} else if(phone == null || phone ==""){
+						alert("Please enter your phone number")
+						return false;
+					} else if(uname== null || uname==""){
+						alert("Please enter your user  name")
+						return false;
+
+					} else if(nid == null || nid ==""){
+						alert("Please enter your National-ID")
+						return false;
+
+					} else if(password == null || password ==""){
+						alert("Please enter your Password")
+						return false;
+
+					}  else if(password.length < 6){
+						alert("password must be atleast 6 characters long")
+						return false;
+					}else if(cpassword == null || cpassword ==""){
+						alert("Please Confirm your password")
+						return false;
+					}else if(password != cpassword){
+						alert("Please Confirm your password, passwords do not match")
+						return false;
+					}
+					
+				}
+			</script>
+	</div>
+{% endblock %}

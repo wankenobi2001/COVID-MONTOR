@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Landing page</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-3.4.1-dist/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='jquery/jquery-ui-1.12.1/jquery-ui.min.css')}}">
+    <script src="{{ url_for('static', filename='bootstrap-3.4.1-dist/js/jquery.slim.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='jquery/jquery-3.6.0.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='jquery/jquery-ui-1.12.1/jquery-ui.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='bootstrap-3.4.1-dist/js/bootstrap.min.js')}}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style2.css')}}">
+</head>
+<body>
+	<div class="container-fluid hq-template" >
+		<div class="login-block" >
+
+		  	<h2 class="logo ">
+				<a href="">MONITOR-LAB <br/> <i class="glyphicon glyphicon-eye-close"></i></a>
+
+			</h2>
+		  	<h3 >Welcome to Covid-19-Lab, that serves you well <br/>in detecting and recognition of Non-Compliance to
+				face mask wearing and social distancing!</h3>
+			<h3>Click on the button below to get started!</h3>
+			<h4></h4>
+			<p class="login-link">
+				<a href="{{url_for('login')}}">Get Started</a>
+			</p>
+
+		  	<div class="separator ">
+				<hr>
+				<p>Or Get Started With</p>
+				<hr>
+			</div>
+			<ul class="social-media">
+				<li><a href="" class="facebook-bg" title="facebook"><i class="fa fa-facebook"></i><span>facebook</span></a></li>
+				<li><a href="" class="twitter-bg" title="twitter"><i class="fa fa-twitter"></i><span>Twitter</span></a></li>
+				<li><a href="" class="google-bg" title="google"><i class="fa fa-google"></i><span>Google</span></a></li>
+			</ul>
+		  	
+		  	<p class="register">Don't have an account || Forgot password? <a href="{{url_for('register')}}">Register</a></p>
+		</div>
+		<div class="copyright hp">
+			<a href="https://www.hqtemplate.com">Developed By Humphrey Phiri</a>
+		</div>
+	</div>
+
+</body>
+</html>

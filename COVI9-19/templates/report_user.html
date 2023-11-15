@@ -1,0 +1,150 @@
+
+{% extends "room.html"%}
+{% block content %}
+    <section class="get-in-touch">
+   <h1 class="title">Generate Your Report</h1>
+   <form class="contact-form row" action="/report_data" method="POST">
+      <div class="form-field col-lg-6">
+         <select name="class_name" class="input-text js-input" required>
+            <option value="" selected disabled hidden> </option>
+            {% for row in value %}
+            <option value="{{ row[1]}}">{{ row[1]}}</option>
+            {% endfor %}
+         </select>
+         <label class="label" for="date">Class Name</label>
+      </div>
+      <div class="form-field col-lg-6 ">
+         <input id="date" class="input-text js-input" name="report_date" type="date" required>
+         <label class="label" for="date">Date</label>
+      </div>
+      <div class="radio-btn">
+         <label class="radio-label">Report Type </label><br>
+            <input type="radio" name="report" value="Daily">Daily<br>
+            <input type="radio" name="report" value="Monthly">Monthly<br>
+            <input type="radio" name="report" value="Annually">Annually<br>
+      </div>
+      <div class="form-field col-lg-12">
+         <input id="message" class="input-text js-input" name="message" type="text" value="" required>
+         <label class="label" for="message">Recommendation on reported Analysis</label>
+      </div>
+      <div class="form-field col-lg-12">
+         <button type="submit" class="btn">Generate report</button>
+      </div>
+   </form>
+</section>
+<style>
+.btn{
+   width: 140px;
+   height: 40px;
+   margin-left: 40%;
+   background:  #1d1b31;;
+   color: #fff;
+}
+select{
+
+    padding:0px;
+    border-radius:0px;
+    background:#fff;
+    width:0px;
+    color: #1d1b31;
+
+}
+.get-in-touch {
+  max-width: 700px;
+  margin: 10px auto;
+  position: relative;
+  background-color: white;
+  padding: 20px;
+  border-radius:10px;
+  box-shadow:  0 0 1px 0 rgba(24, 94, 224, 0.2), 0 6px 12px 0 rgba(24,94,224,0.2);
+
+}
+.get-in-touch .title {
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 2.2em;
+  line-height: 48px;
+  padding-bottom: 48px;
+  color: #1d1b31;
+
+}
+
+.contact-form .form-field {
+  position: relative;
+  margin: 20px 0;
+}
+.contact-form .input-text {
+  display: block;
+  width: 100%;
+  height: 36px;
+  border-width: 0 0 2px 0;
+  border-color: #1d1b31;
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 400;
+}
+.contact-form .input-text:focus {
+  outline: none;
+}
+.contact-form .input-text:focus + .label,
+.contact-form .input-text.not-empty + .label {
+  -webkit-transform: translateY(-24px);
+          transform: translateY(-24px);
+}
+.contact-form .label {
+  position: absolute;
+  left: 20px;
+  bottom: 15px;
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 400;
+  color: #1d1b31;
+  cursor: text;
+  transition: -webkit-transform .2s ease-in-out;
+  transition: transform .2s ease-in-out;
+  transition: transform .2s ease-in-out,
+  -webkit-transform .2s ease-in-out;
+}
+.contact-form .submit-btn {
+  display: inline-block;
+  background-color: #1d1b31;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 16px;
+  padding: 8px 16px;
+  border-radius:10px;
+  border: none;
+  width:200px;
+  margin-left: 35%;
+  cursor: pointer;
+}
+#date{
+   padding: 5px 4px 4px 12px ;
+}
+.radio-btn{
+  margin-left: 20px;
+  margin-bottom: 20px;
+
+
+}
+.radio-btn input{
+    margin-left: 20px;
+    margin-bottom: 5px;
+     color: #1d1b31;
+
+
+}
+.radio-label{
+   font-size: 15px;
+  line-height: 26px;
+  cursor: text;
+  color: #1d1b31;
+  padding: 5px;
+
+}
+
+
+</style>
+{% endblock %}

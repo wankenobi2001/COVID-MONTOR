@@ -1,0 +1,30 @@
+
+{% extends "room.html"%}
+{% block content %}
+	<div class="login-block admin" id="admin_login">
+		<div class="profile-data">
+			<h2>Access & Privacy</h2>
+			<hr>
+			<image src="{{ url_for('static', filename='images/man.png')}}"/>
+
+			<h5>Please enter your system root access credentials to login!</h5>
+			<h6 style="">{% if loginerror %} {{loginerror}} {% endif %}</h6>
+
+		</div>
+
+		<form action="/admin_login" method="POST">
+				<div class="row">
+					<div class="form-group"  >
+                         <label>Username</label>
+						<input type="text" name="AdminId" class="form-control" placeholder="enter your AdminId">
+					</div>
+					<div class="form-group"  >
+                         <label>Password</label>
+						<input type="password" name="password" class="form-control" placeholder="enter your admin password">
+					</div>
+				</div>
+				<button class="login-btn" type="submit"><a href="">Login</a></button>
+
+			</form>
+	</div>
+{% endblock %}

@@ -1,0 +1,85 @@
+
+{% extends "admin.html"%}
+{% block content %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-3.4.1-dist/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='jquery/jquery-ui-1.12.1/jquery-ui.min.css')}}">
+    <script src="{{ url_for('static', filename='bootstrap-3.4.1-dist/js/jquery.slim.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='jquery/jquery-3.6.0.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='jquery/jquery-ui-1.12.1/jquery-ui.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='bootstrap-3.4.1-dist/js/bootstrap.min.js')}}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='sweetalert/sweetalert.css') }}">
+	<script src="{{ url_for('static', filename='sweetalert/sweetalert.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='sweetalert/sweetalert2.all.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='DataTables-1.13.1/css/datatables.min.css')}}">
+    <script src="{{ url_for('static', filename='DataTables-1.13.1/js/datatables.min.js')}}"></script>
+
+    <div class="admin-tables Dashboard">
+
+        <table class="content-table" id="my-table">
+            <thead>
+                <tr>
+                    <th>FirstName</th>
+                    <th>LastName</th>
+                    <th>UserName</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>National ID</th>
+                    <th>Joining Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for row in value %}
+                <tr>
+                    <td>{{ row[1]}}</td>
+                    <td>{{ row[2]}}</td>
+                    <td>{{ row[3]}}</td>
+                    <td>{{ row[4]}}</td>
+                    <td>{{ row[5]}}</td>
+                    <td>{{ row[6]}}</td>
+                    <td>{{ row[7]}}</td>
+                    <td>
+                        <a href="{{url_for('delete', uname = row[3])}}" id="delete">Delete</a>
+                        <a href="{{url_for('Update', uname = row[3])}}" id="view">Update</a>
+                    </td>
+
+                </tr>
+
+                <script>
+
+                    $('#delete').on('click', function(e){
+                        e.preventDefault();
+                        const href = $(this).attr('href')
+
+                        swal.fire({
+                            type: 'warning',
+                            title: 'Are you sure you want to Delete this User?',
+                            text:' ',
+                            showCancelButton: true,
+                            confirmButtonColor: "#3085d6",
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'yes',
+                        }).then((result)=>{
+                            if(result.value){
+                                document.location.href = href;
+                            }
+
+                        });
+
+                    });
+                </script>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+      $(document).ready(function() {
+        $('#my-table').DataTable(
+        {
+          searching: true,
+          paging: true
+        });
+      });
+    </script>
+{% endblock %}

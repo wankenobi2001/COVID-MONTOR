@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-3.4.1-dist/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='jquery/jquery-ui-1.12.1/jquery-ui.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='sweetalert/sweetalert.css') }}">
+	<script src="{{ url_for('static', filename='sweetalert/sweetalert.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='sweetalert/sweetalert2.all.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap-3.4.1-dist/js/jquery.slim.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='jquery/jquery-3.6.0.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='jquery/jquery-ui-1.12.1/jquery-ui.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='bootstrap-3.4.1-dist/js/bootstrap.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='canvas/canvasjs.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='package/dist/Chart.min.js')}}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css')}}">
+
+    <title>Document</title>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo_content">
+            <div class="logo">
+                <i class="glyphicon glyphicon-eye-close"></i>
+                <div class="logo_name">MONITOR-LAB</div>
+            </div>
+            <i class="glyphicon glyphicon-align-justify" id="btn"></i>
+        </div>
+        <ul class="nav_list">
+            <li>
+
+                <i class="glyphicon glyphicon-search"></i>
+                <input type="text" name="" placeholder="Search">
+
+            </li>
+            <li>
+                <a href="{{url_for('room')}}">
+                    <i class="glyphicon glyphicon-signal"></i>
+                    <span class="links_name">Analytics</span>
+                </a>
+            </li>
+
+            <li>
+                {% if user %}
+                     <a href="{{url_for('profile', uname=user['Username'])}}">
+                        <i class="glyphicon glyphicon-user"></i>
+                        <span class="links_name">Profile</span>
+                    </a>
+
+                {% endif %}
+
+            </li>
+            <li>
+                <a href="{{url_for('change_password')}}">
+                    <i class="glyphicon glyphicon-folder-open"></i>
+                    <span class="links_name">Change Password</span>
+                </a>
+
+            </li>
+            <li>
+                <a href="{{url_for('admin_login')}}">
+                    <i class="glyphicon glyphicon-user"></i>
+                    <span class="links_name">Access & Privacy</span>
+                </a>
+            </li>
+             <li>
+                <a href="{{url_for('report_user')}}">
+                    <i class="glyphicon glyphicon-user"></i>
+                    <span class="links_name">Generate Class Report</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{url_for('pdf')}}">
+                    <i class="glyphicon glyphicon-cog"></i>
+                    <span class="links_name">Reports</span>
+                </a>
+
+            </li>
+            <li>
+                <a href="#">
+                    <i class="glyphicon glyphicon-cog"></i>
+                    <span class="links_name">Settings</span>
+                </a>
+
+            </li>
+
+        </ul>
+        <div class="profile_content">
+            <div class="profile">
+                <div class="profile_details">
+                    <image src="{{ url_for('static', filename='images/man.png')}}"/>
+                    <div class="name_job">
+                        <div class="name">Humphrey Phiri</div>
+                        <div class="job">Programmer</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="home_content home_room">
+        <div class="text">
+            <div class="user">
+                <h5>
+                    <a href="{{url_for('logging_out')}}"  id="log_out">Logout <i class="glyphicon glyphicon-log-out"></i></a>
+                </h5>
+                <script>
+                    $('#log_out').on('click', function(e){
+                        e.preventDefault();
+                        const href = $(this).attr('href')
+
+                        swal.fire({
+                            type: 'warning',
+                            title: 'Are you sure you want to log out?',
+                            text:' ',
+                            showCancelButton: true,
+                            confirmButtonColor: "#3085d6",
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'yes',
+                        }).then((result)=>{
+                            if(result.value){
+                                document.location.href = href;
+                            }
+
+                        });
+
+                    });
+                </script>
+            </div>
+            <div class="admin_identity">
+                {% if user %}
+                    <h5> Username: {{user['Username']}}  </h5>
+                {% endif %}
+            </div>
+        </div>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+					{% if messages %}
+						<div class=flashes>
+							{% for category, message in messages %}
+								<script>
+									swal.fire({
+										title: "{{message}}",
+										text: " ",
+										type: "{{category}}",
+										icon: "{{category}}",
+									});
+								</script>
+							{% endfor %}
+						</div>
+					{% endif %}
+				{% endwith %}
+        {% block content %}
+        <div class="container charts">
+            <div class="row">
+                <div class="col-xs-5 column1">
+                    <div class="monitor">
+                        <span><i class="glyphicon glyphicon-eye-close"></i></span>
+                        <p>Choose a classroom you would like to monitor!</p>
+                        <form name="myform" action="/room2" method="POST">
+
+                                <select name="class_name"required>
+                                    <option value="" selected disabled hidden> </option>
+                                    {% for row in value %}
+                                        <option value="{{ row[1]}}">{{ row[1]}}</option>
+                                    {% endfor %}
+                                </select>
+                            <button type="submit" class="button_monitor"><a href="">Monitor</a></button>
+                        </form>
+                        <script>
+                             function validateForm(){
+                                var cname = document.myform.class_name.value;
+
+                                if(cname == null || cname ==""){
+                                    alert("Please enter your first name")
+                                    return false;
+                                }
+                            }
+
+                        </script>
+                    </div>
+
+                </div>
+                <div class="col-xs-5 column1">
+                     <canvas id="bar_vs_graph"></canvas>
+                    <button onclick="timeFrame(this)" value="month" id="hump">Month</button>
+                    <button onclick="timeFrame(this)" value="year" id="hump">Year</button>
+
+                </div>
+                <div class="col-xs-5 column1">
+                    <canvas id="line_vs_graph"></canvas>
+                </div>
+                <div class="col-xs-5 column1">
+                    <canvas id="pie_vs_chart" width="76px" height="76px"></canvas>
+                </div>
+                 <div class="col-xs-5 column1">
+                     <p id="p_class">Top Violated Classrooms</p>
+                    <div class="room-tables">
+                        <table class="content-table">
+                            <thead>
+                                <tr>
+                                    <th>Classroom_Name</th>
+
+                                    <th>Total Violations</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for row in class_data%}
+                                <tr>
+                                    <td>{{ row[1]}}</td>
+                                    <td>{{ row[3]}}</td>
+                                </tr>
+
+
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        <p id="c_view">view all classes</p>
+                    </div>
+                </div>
+                <div class="col-xs-5 column1">
+                    <div class="col-xs-7 column3">
+                        <p id="p_class">Suggestions|| Feedback</p>
+                        <form action="" method="POST">
+
+                            <div class="form-group" >
+                                <textarea></textarea>
+                            </div>
+                            <button id="text_area_btn">Send</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+          const face_violation_data = JSON.parse({{ bar_violation_data | tojson }});
+          const social_violation_data = JSON.parse({{ bar_violation_data2 | tojson }});
+          const bar_violation_label = JSON.parse({{ bar_violation_label | tojson }});
+
+          const yr_data1 = JSON.parse({{ yr_bar_violation_data | tojson }});
+          const yr_data2 = JSON.parse({{ yr_bar_violation_data2 | tojson }});
+          const yr_label = JSON.parse({{ yr_bar_violation_label | tojson }});
+
+          const data = {
+          labels: bar_violation_label,
+          datasets: [{
+                label: 'total face mask violation',
+                data: face_violation_data,
+                borderWidth: 1,
+                backgroundColor: ['#5DA5DA'],
+              },
+
+          {
+             label: 'total social distance violation',
+              data: social_violation_data,
+              borderWidth: 1,
+              backgroundColor: ['#1d1b31'],
+            }]
+        };
+
+        // config
+        const config = {
+          type: 'bar',
+          data,
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        };
+
+        // render init block
+        const myChart = new Chart(
+          document.getElementById('bar_vs_graph'),
+          config
+        );
+
+          let pie_violation_data = JSON.parse({{ pie_violation_data | tojson }});
+          let pie_violation_label = JSON.parse({{ pie_violation_label | tojson }});
+
+          const ctx3 = document.getElementById('pie_vs_chart');
+          ctx3.height = 40;
+
+          new Chart(ctx3, {
+            type: 'pie',
+            data: {
+              labels:pie_violation_label ,
+              datasets: [{
+                label: '# of Votes',
+                data: pie_violation_data,
+                borderWidth: 1,
+                backgroundColor: ['#5DA5DA ', '#FAA43A', '#60BD68','#1d1b31'],
+                hoverBorderColor: "black",
+                hoverBorderWidth: 2,
+                hoverBackgroundColor: 'rgba(154, 245, 140)',
+                pointHoverRadius: 5
+              }],
+              datasets: [{
+                label: '# of Votes',
+                data: pie_violation_data,
+                borderWidth: 1,
+                backgroundColor: ['#5DA5DA ', '#FAA43A', '#60BD68','#1d1b31', '#808000'],
+                hoverBorderColor: "black",
+                hoverBorderWidth: 2,
+                hoverBackgroundColor: 'rgba(234, 245, 40)',
+                pointHoverRadius: 5
+              }],
+
+            },
+
+            options: {
+              title: {
+                        display: true,
+                              text: "Total Violations per class",
+                              fontSize: 20,
+                        },
+                        legend: {
+                            position: "right",
+                                labels: {
+                                fontColor: "gray"
+                            },
+                            display: true,
+                        },
+
+                        elements: {
+                            hitRadius: 3,
+                        }
+            }
+          });
+
+          const ctx2 = document.getElementById('line_vs_graph');
+
+           new Chart(ctx2, {
+            type: 'line',
+            data: {
+              labels: ['7:00AM-9:00AM', '9:00AM-11:00AM', '11:00AM-13:00PM', '13:00PM-15:00PM', '15:PM:00-18:00PM'],
+              datasets: [{
+                label: 'Violations',
+                data: [12, 70, 3, 5, 2],
+                borderWidth: 1,
+                backgroundColor: ['#1d1b31', '#1d1b31', '#1d1b31',
+                        '#1d1b31', '#1d1b31'],
+              }]
+            },
+
+            options: {
+               title: {
+                      display: true,
+                      text: "Total Violations per Monitored Hours",
+                      fontSize: 20,
+              },
+              scales: {
+                y: {
+                  beginAtZero: true
+                }
+              }
+            }
+          });
+
+          function timeFrame(period){
+
+            console.log(period.value)
+            if ( period.value == 'month'){
+                myChart.config.data.datasets[0].data=face_violation_data;
+                myChart.config.data.datasets[1].data=social_violation_data;
+                myChart.config.data.labels=bar_violation_label;
+
+            }
+            if ( period.value == 'year'){
+                myChart.config.data.datasets[0].data=yr_data1;
+                myChart.config.data.datasets[1].data=yr_data2;
+                myChart.config.data.labels=['2023 Total Violations'];
+
+            }
+
+            myChart.update();
+
+
+          }
+
+
+
+        </script>
+        {% endblock %}
+    </div>
+
+
+</body>
+</html>

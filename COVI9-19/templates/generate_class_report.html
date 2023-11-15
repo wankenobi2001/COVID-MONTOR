@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-3.4.1-dist/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='jquery/jquery-ui-1.12.1/jquery-ui.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='sweetalert/sweetalert.css') }}">
+	<script src="{{ url_for('static', filename='sweetalert/sweetalert.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap-3.4.1-dist/js/jquery.slim.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='jquery/jquery-3.6.0.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='jquery/jquery-ui-1.12.1/jquery-ui.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='bootstrap-3.4.1-dist/js/bootstrap.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='canvas/canvasjs.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='package/dist/Chart.min.js')}}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='report.css')}}">
+
+    <title>Document</title>
+</head>
+<body>
+
+    <h2 class="logo ">
+        <a href="">MONITOR-LAB <br/> <i class="glyphicon glyphicon-eye-close"></i></a>
+    </h2>
+
+    <h4 class="logo ">Classroom Report</h4>
+    <h4 style="margin-left: 30%;">Date: {{ report_date }}</h4>
+    <div class="text">
+        <p>
+            The table is created using the table element and its rows and cells are defined<br>
+            using the tr and td elements, respectively. The graph is created using a div<br> element
+            with an id attribute, which can be used to reference the<br> element in your JavaScript code
+            to render the graph.
+        </p>
+    </div>
+    <div class="room-tables">
+
+    {% if report_type == "Annually" %}
+        <p>{{ class_name }} Annual Analysis as of 2023</p>
+        <table class="content-table">
+            <thead>
+                <tr>
+                    <th>Social Violations</th>
+                    <th>Face Mask_Violations</th>
+                    <th>Total Violations</th>
+                    <th>Class_Room</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for row in data %}
+                <tr>
+                    <td>{{ row[1]}}</td>
+                    <td>{{ row[2]}}</td>
+                    <td>{{ row[3]}}</td>
+                    <td>{{ row[4]}}</td>
+
+                </tr>
+
+            {% endfor %}
+            </tbody>
+
+        </table>
+        {% elif report_type  == 'Monthly' %}
+        <p>{{ class_name }} Monthly Analysis as of 2023</p>
+
+        <table class="content-table">
+            <thead>
+                <tr>
+                    <th>Month</th>
+                    <th>Social Violations</th>
+                    <th>Face Mask_Violations</th>
+                    <th>Total Violations</th>
+
+                </tr>
+            </thead>
+            <tbody>
+            {% for row in data %}
+                <tr>
+                    <td>{{ row[0]}}</td>
+                    <td>{{ row[1]}}</td>
+                    <td>{{ row[2]}}</td>
+                    <td>{{ row[3]}}</td>
+
+
+                </tr>
+
+            {% endfor %}
+            </tbody>
+
+        </table>
+
+        {% elif report_type  == 'Daily' %}
+        <p>{{ class_name }} Daily Analysis as of 2023</p>
+        <table class="content-table">
+            <thead>
+                <tr>
+                    <th>Day(dd-mm)</th>
+                    <th>Social Violation</th>
+                    <th>Face Mask_Violations</th>
+                    <th>Total Violations</th>
+
+                </tr>
+            </thead>
+            <tbody>
+            {% for row in data %}
+                <tr>
+                    <td>{{ row[0]}}</td>
+                    <td>{{ row[1]}}</td>
+                    <td>{{ row[2]}}</td>
+                    <td>{{ row[3]}}</td>
+
+
+                </tr>
+
+            {% endfor %}
+            </tbody>
+
+        </table>
+
+        {% endif %}
+        <h4 >Recommendation</h4>
+        <p> {{ recommend }}</p>
+
+
+        <p style="margin-top:100px; width:100px; border-bottom: 2px solid black;"></p>
+        <p>Coordinator</p>
+
+
+
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-3.4.1-dist/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='jquery/jquery-ui-1.12.1/jquery-ui.min.css')}}">
+    <script src="{{ url_for('static', filename='bootstrap-3.4.1-dist/js/jquery.slim.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='jquery/jquery-3.6.0.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='jquery/jquery-ui-1.12.1/jquery-ui.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='bootstrap-3.4.1-dist/js/bootstrap.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='canvas/canvasjs.min.js')}}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css')}}">
+
+    <title>Document</title>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo_content">
+            <div class="logo">
+                <i class="glyphicon glyphicon-eye-close"></i>
+                <div class="logo_name">Covid-19-Lab</div>
+            </div>
+            <i class="glyphicon glyphicon-align-justify" id="btn"></i>
+        </div>
+        <ul class="nav_list">
+            <li>
+
+                <i class="glyphicon glyphicon-search"></i>
+                <input type="text" name="" placeholder="Search">
+
+            </li>
+            <li>
+                <a href="{{url_for('home')}}">
+                    <i class="glyphicon glyphicon-eye-close"></i>
+                    <span class="links_name">Face-Mask Detection</span>
+                </a>
+
+            </li>
+            <li>
+                <a href="{{url_for('social')}}">
+                    <i class="glyphicon glyphicon-file"></i>
+                    <span class="links_name">Social Distancing</span>
+                </a>
+
+            </li>
+            <li>
+                <a href="#">
+                    <i class="glyphicon glyphicon-signal"></i>
+                    <span class="links_name">Analytics</span>
+                </a>
+
+            </li>
+            <li>
+                <a href="#">
+                    <i class="glyphicon glyphicon-cog"></i>
+                    <span class="links_name">Settings</span>
+                </a>
+
+            </li>
+
+        </ul>
+        <div class="profile_content">
+            <div class="profile">
+                <div class="profile_details">
+                    <image src="{{ url_for('static', filename='images/man.png')}}"/>
+                    <div class="name_job">
+                        <div class="name">Humphrey Phiri</div>
+                        <div class="job">Programmer</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div id="sidebar2">
+        <div class="watch">Watching</div>
+        <div class="lists">
+            <ul>
+                <li>Emergency Line<i class="glyphicon glyphicon-chevron-down"></i></li>
+                <li style="margin-left:10px;">All Cameras<i class="glyphicon glyphicon-facetime-video"></i></li>
+            </ul>
+        </div>
+        <div class="came c1"> Camera 1 <i class="glyphicon glyphicon-facetime-video"></i></div>
+        <div class="came c2"> Camera 2<i class="glyphicon glyphicon-facetime-video"></i></div>
+        <div class="came c3"> Camera 3<i class="glyphicon glyphicon-facetime-video"></i></div>
+        <div class="came c4"> Camera 4<i class="glyphicon glyphicon-facetime-video"></i></div>
+
+        <p class="stream">Streaming...................</p>
+        <div class="streaming">
+            <span id="wrapper">
+               <div></div>
+               <div></div>
+               <div></div>
+               <div></div>
+               <div></div>
+               <div></div>
+               <div></div>
+               <div></div>
+               <div></div>
+               <div></div>
+               <div></div>
+               <div></div>
+               <div></div>
+               <div></div>
+               <div></div>
+               <div></div>
+               <div></div>
+               <div></div>
+               <div></div>
+               <div></div>
+               <div></div>
+               <div></div>
+            </span>
+        </div>
+    </div>
+    <div class="home_content">
+        <div class="text">
+            {% if rooms %}
+                    <p>{{rooms}}</p>
+            {% endif %}
+            <div class="user">
+                <h5><a href="{{url_for('logout')}}">Logout <i class="glyphicon glyphicon-log-out" id="log_out"></i></a></h5>
+                {% if user %}
+                    <h5> Username: {{user['Username']}}  </h5>
+                {% endif %}
+                 {% if y_axis %}
+                    <h5> Username: {{y_axis}}  </h5>
+                {% endif %}
+            </div>
+        </div>
+        {% block content %}
+        <div id="videos">
+            <div id="video">
+                <img  src="{{url_for('social_d')}}" />
+            </div>
+        </div>
+
+        {% endblock %}
+    </div>
+
+
+</body>
+</html>
